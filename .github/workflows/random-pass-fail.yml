@@ -1,0 +1,21 @@
+name: Random Pass/Fail Every 5 Minutes
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:       # Allows manual trigger from GitHub UI
+
+jobs:
+  random-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Randomly pass or fail
+        run: |
+          if [ $((RANDOM % 2)) -eq 0 ]; then
+            echo "✅ Success"
+            exit 0
+          else
+            echo "❌ Failure"
+            exit 1
+          fi
+
